@@ -2,7 +2,8 @@
 
 import os, sys
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
+# BASE_DIR = base_dir is C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -115,9 +116,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # папка, из которой будет загружаться медиа
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-# URL для медиа
-MEDIA_URL = '/media/'
+# MEADIA_ROOT = C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media\\')
 
 

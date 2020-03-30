@@ -1,9 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.conf import settings
+import os
+import fnmatch
 
+# ОБЯЗАТЕЛЬНО СПЕРЕДИ ПИСАТЬ users !!!
+from users.models import Single_User
+from users.models import Video
 
 # Это вьюшка для страницы регистрации.
 def register(request):
@@ -22,7 +27,7 @@ def register(request):
             # messages.error
             messages.success(request, f'Аккаунт создан, {username}')
             # ЗДЕСЬ НАДО РЕНДЕРИТЬ СТРАНИЦУ С ВИДЕО!
-            return render(request, 'users/index.html', {"form": form})
+            return render(request, 'users/menu_page.html', {"form": form})
         else:
             print("Form is not valid!")
     else:
@@ -38,3 +43,24 @@ def index(request):
 def login(request):
     return render(request, 'users/login.html')
 
+
+def display_video(request,vid=None):
+    if vid is None:
+        return HttpResponse("No Video")
+
+    # Здесь идет поиск видео с разными расширениями. У меня они mp4. Так что закоменчу
+    """
+    video_name = ""
+    for fname in os.listdir(settings.MEDIA_ROOT):
+        if fnmatch.fnmatch(fname, vid+".*"): #using pattern to find the video file with given id and any extension
+            video_name = fname
+            break
+    """
+
+    video_name = vid+".mp4"
+
+    # ..../media/1.mp4
+    #video_url = settings.MEDIA_URL+video_name
+    video_url = settings.MEDIA_ROOT + video_name
+
+    return render(request, "users/videos.html", {"url":video_url})

@@ -8,10 +8,8 @@ class Single_User(models.Model):
 
 # Модель видео
 class Video(models.Model):
-    name = models.FileField(max_length=500)
-    videofile = models.FileField(upload_to="videos/", null=True, verbose_name="")
+    video_id = models.CharField(blank=False,max_length=500)
+    file_name = models.CharField(blank=False, max_length=500)
 
     def __str__(self):
-        return self.name + ": " + str(self.videofile)
-
-    
+        return self.video_id
