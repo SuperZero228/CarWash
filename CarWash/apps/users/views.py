@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse
 from django.conf import settings
@@ -9,11 +8,12 @@ import fnmatch
 # ОБЯЗАТЕЛЬНО СПЕРЕДИ ПИСАТЬ users !!!
 from users.models import Single_User
 from users.models import Video
+from users.forms import UserRegisterForm # кастомная форма регистрации
 
 # Это вьюшка для страницы регистрации.
 def register(request):
     if request.method == 'POST': # Если был создан POST запрос на регистрацию, то форма создается со всеми данными запроса
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             # СОХРАНЕНИЕ ПОЛЬЗОВАТЕЛЯ
             form.save()
@@ -31,7 +31,7 @@ def register(request):
         else:
             print("Form is not valid!")
     else:
-        form = UserCreationForm() # Если нет, то создается просто пустая форма
+        form = UserRegisterForm() # Если нет, то создается просто пустая форма
         print(1)
     return render(request, 'users/register.html', {'form': form})
 

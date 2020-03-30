@@ -26,6 +26,7 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -119,4 +120,5 @@ STATIC_URL = '/static/'
 # MEADIA_ROOT = C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media\\')
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4' # делаем стильна bootstrap4
 
