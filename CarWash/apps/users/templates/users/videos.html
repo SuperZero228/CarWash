@@ -5,18 +5,28 @@
 
 </head>
 <body>
-{{url}}
+<h3> Воспроизводится видео из файла {{ url }}</h3>
 <br><br>
 {% if user.is_authenticated %}
     <video width="400" controls>
       <source src="{{ url }}" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
-{% else %}
-    <h2>You are not logged in</h2>
+    <hr>
     <div class="border-top pt-3">
         <small class="text-muted">
-            <a class="ml-2" href="/login">Войти</a>
+            <a class="ml-2" href="/logout">
+                <button class="btn btn-outline-info" type="submit">Выйти из аккаунта</button>
+            </a>
+        </small>
+    </div>
+{% else %}
+    <h2>Вы не вошли в аккаунт! Видео недоступно</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a class="ml-2" href="/login">
+                <button class="btn btn-outline-info" type="submit">Войти</button>
+            </a>
         </small>
     </div>
 {% endif %}

@@ -10,7 +10,7 @@ from . import views
 
 app_name = 'users'
 urlpatterns = [
-    path('', views.index, name='index'), # доманяя страница
+    path('index/', views.index, name='index'), # доманяя страница
     path('register/', views.register, name='register'), # страница регистрации
     path('login/', auth_views.LoginView.as_view(template_name="users/login.html"), name='login'),  # базовая форма логина. template_name указывает на то, какую html сраницу надо загрузить
     path('logout/', auth_views.LogoutView.as_view(template_name="users/logout.html"), name='logout'),
