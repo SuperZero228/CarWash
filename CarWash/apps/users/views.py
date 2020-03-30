@@ -26,7 +26,7 @@ def register(request):
             # messages.warning
             # messages.error
             messages.success(request, f'Аккаунт создан!')
-            return render(request, 'users/login.html', {"form": form})
+            return redirect('../login')
         else:
             print("Form is not valid!")
     else:
@@ -42,10 +42,10 @@ def index(request):
 def login(request):
     return render(request, 'users/login.html')
 
-
+# Страница с видео
 def display_video(request,vid=None):
     if vid is None:
-        return HttpResponse("No Video")
+        return HttpResponse("No video!")
 
     # Здесь идет поиск видео с разными расширениями. У меня они mp4. Так что закоменчу
     """
