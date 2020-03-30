@@ -122,3 +122,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media\\')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' # делаем стильна bootstrap4
 
+# После входа пользователей перенаправляет на страницу с видео
+LOGIN_REDIRECT_URL = '../../video/1' # сделано топорно

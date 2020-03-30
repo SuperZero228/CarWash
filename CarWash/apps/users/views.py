@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponse
 from django.conf import settings
+from django.shortcuts import render, redirect, get_object_or_404
 import os
 import fnmatch
 
@@ -25,9 +25,8 @@ def register(request):
             # messages.success
             # messages.warning
             # messages.error
-            messages.success(request, f'Аккаунт создан, {username}')
-            # ЗДЕСЬ НАДО РЕНДЕРИТЬ СТРАНИЦУ С ВИДЕО!
-            return render(request, 'users/menu_page.html', {"form": form})
+            messages.success(request, f'Аккаунт создан!')
+            return render(request, 'users/login.html', {"form": form})
         else:
             print("Form is not valid!")
     else:

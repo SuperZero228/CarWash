@@ -7,12 +7,22 @@
 <body>
 {{url}}
 <br><br>
-<video width="400" controls>
-  <source src="{{ url }}" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video>
+{% if user.is_authenticated %}
+    <video width="400" controls>
+      <source src="{{ url }}" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+{% else %}
+    <h2>You are not logged in</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a class="ml-2" href="/login">Войти</a>
+        </small>
+    </div>
+{% endif %}
 <br><br>
 </p>
 
 </body>
+</html>
 
