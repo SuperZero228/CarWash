@@ -29,6 +29,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 
 auth = firebase.auth()
+
 ######################################################################################
 # Это вьюшка для страницы регистрации.
 def register(request):
@@ -40,11 +41,11 @@ def register(request):
         # Создается пользователь и сохраняется в FireBase
         user = auth.create_user_with_email_and_password(email, password)
 
-        messages.success(request, f'Аккаунт создан!')
+        # На почту отправляется письмо для подтверждения почты
+        auth.send_email_verification(user["idToken"])
+        messages.info(request, f'На Вашу почту было отправлено письмо для подтверждения регистрации')
         return redirect('../login')
-    else:
-        print("Form is not valid!")
-   
+
     return render(request, 'users/register.html')
 
 # Домашняя страница
@@ -53,26 +54,36 @@ def index(request):
 
 # Станица входа
 def login(request):
-    return render(request, 'users/login.html')
+    if request.method == "POST":
 
-# Страница с видео
-def display_video(request,vid=None):
-    if vid is None:
-        return HttpResponse("No video!")
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-    # Здесь идет поиск видео с разными расширениями. У меня они mp4. Так что закоменчу
-    """
+        login = auth.sign_in_with_email_and_password(email, password)
+
+        #messages.info(request, f'Вы успешно вошли в аккаунт!')
+        video_url = find_video()
+        return render(request, 'users/videos.html', {"logged_in": True, "url":video_url})
+    else:
+        return render(request, 'users/login.html')
+
+def logout(request):
+    auth.current_user = None # так делается выход из аккаунта
+    return render(request, 'users/logout.html')
+
+# Функция получает путь к файлу с видео
+def find_video():
+
+
     video_name = ""
     for fname in os.listdir(settings.MEDIA_ROOT):
-        if fnmatch.fnmatch(fname, vid+".*"): #using pattern to find the video file with given id and any extension
+        if ".mp4" in fname:
             video_name = fname
             break
     """
+    video_name = "1.mp4" # надо сделать, чтобы искал любой видос !!! БАГ
+    """
 
-    video_name = vid+".mp4"
-
-    # ..../media/1.mp4
-    #video_url = settings.MEDIA_URL+video_name
     video_url = settings.MEDIA_ROOT + video_name
 
-    return render(request, "users/videos.html", {"url":video_url})
+    return video_url
