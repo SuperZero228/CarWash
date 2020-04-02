@@ -3,15 +3,34 @@
 
 {% block content %}
     <div>
-        <form method="POST">
+        <form action="/register/" method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Зарегестрируйтесь, чтобы увидеть видео</legend>
-                {{ form|crispy }}
+
+                <legend class="border-bottom mb-4">Зарегестрируйтесь здесь</legend>
+                <div>
+                    Имя пользователя :
+                    <input type="text" name="username">
+                </div>
+                <div>
+                    Почта :
+                    <input type="email" name="email">
+                </div>
+                <div>
+                    Пароль:
+                    <input type="password" name="password1">
+                </div>
+                <div>
+                    Введите пароль еще раз:
+                    <input type="password" name="password2">
+                </div>
+                <div>
+                    <input type="submit" value="Зарегестрироваться">
+                </div>
+
             </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Зарегестрироваться</button>
-            </div>
+
+
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
