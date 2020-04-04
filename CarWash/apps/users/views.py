@@ -5,11 +5,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 import os
 import fnmatch
 import pyrebase
+import cv2
+import imutils
 
 # ОБЯЗАТЕЛЬНО СПЕРЕДИ ПИСАТЬ users !!!
 from users.models import Single_User
 from users.models import Video
 from users.forms import UserRegisterForm # кастомная форма регистрации
+
+from . import parking_lot_detection
 
 
 
@@ -59,11 +63,24 @@ def login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        login = auth.sign_in_with_email_and_password(email, password)
+        try:
+            login = auth.sign_in_with_email_and_password(email, password)
+        except Exception:
+            raise Exception
 
         #messages.info(request, f'Вы успешно вошли в аккаунт!')
         video_url = find_video()
-        return render(request, 'users/videos.html', {"logged_in": True, "url":video_url})
+        if auth.current_user:
+            logged_in = True
+        else:
+            logged_in = False
+
+        return display_video(request, logged_in, video_url)
+
+
+        #return redirect("../video", {"logged_in": logged_in})
+        # Это убираю, потому что теперь более сложная схема - с редиректом
+        #return render(request, 'users/videos.html', {"logged_in": True, "url":video_url})
     else:
         return render(request, 'users/login.html')
 
@@ -73,8 +90,6 @@ def logout(request):
 
 # Функция получает путь к файлу с видео
 def find_video():
-
-
     video_name = ""
     for fname in os.listdir(settings.MEDIA_ROOT):
         if ".mp4" in fname:
@@ -87,3 +102,38 @@ def find_video():
     video_url = settings.MEDIA_ROOT + video_name
 
     return video_url
+
+
+# Функция рендерит страницу, на которой воспроизводится видео
+# Второй и третий аргумент None, потому что если пользователь не зареган и перейдет на вкладку /video
+# То у него должно отобразиться сообщение о том, что он не зареган
+# А вот если он зареган, то они в функции login становятся не None и дальше все работает норм
+def display_video(request, logged_in=None, video_url=None):
+    return render(request, 'users/videos.html', {"logged_in": logged_in, "url":video_url})
+
+# Функция вызывается другой функцией и реализует функионал OpenCV
+def process_img():
+    img = cv2.imread(r"C:\CREESTL\Programming\PythonCoding\semestr_3\parking_lot_detection\parking_lots\000002.jpg")
+    img = imutils.resize(img, 400, 400)
+    # Показ окна виснет и крашится
+    #cv2.imshow("image", img)
+    (H, W) = img.shape[:2]
+    print("\nThe size of the image is: ", H, W, "\n")
+
+
+
+# Надо в конце рендерить страницу videos.html и в словаре передать туда результат работы opencv
+# а потом его надо будет через {{  }} вывести наверно
+def activate_opencv(request):
+    process_img()
+
+    # В консоль надо смотреть когда это запускаю! Он там ждет ответа y/n
+    img = cv2.imread(r'C:\CREESTL\Programming\PythonCoding\semestr_3\parking_lot_detection\parking_lots\empty.jpg')
+    parking_lot_detection.process(img)
+
+
+
+    return render(request, "users/index.html")
+
+
+
