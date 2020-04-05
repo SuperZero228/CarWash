@@ -120,27 +120,30 @@ def display_video(request):
         logged_in = False
     return render(request, 'users/videos.html', {"logged_in": logged_in, "url":video_url})
 
-# Функция вызывается другой функцией и реализует функионал OpenCV
-def process_img():
-    img = cv2.imread(r"C:\CREESTL\Programming\PythonCoding\semestr_3\parking_lot_detection\parking_lots\000002.jpg")
-    img = imutils.resize(img, 400, 400)
-    # Показ окна виснет и крашится
-    #cv2.imshow("image", img)
-    (H, W) = img.shape[:2]
-    print("\nThe size of the image is: ", H, W, "\n")
-
 
 
 # Надо в конце рендерить страницу videos.html и в словаре передать туда результат работы opencv
 # а потом его надо будет через {{  }} вывести наверно
 def activate_opencv(request):
-    process_img()
-
     # В консоль надо смотреть когда это запускаю! Он там ждет ответа y/n
     img = cv2.imread(r'C:\CREESTL\Programming\PythonCoding\semestr_3\parking_lot_detection\parking_lots\empty.jpg')
+    # Фотка обрабатывается
     parking_lot_detection.process(img)
 
 
+    # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
+    # который потом будет загруже на HTML страницу
+    ready_img_path = "C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\FINAL.png"
+
+    if auth.current_user is not None:
+        logged_in = True
+    else:
+        logged_in = False
+
+    if ready_img_path is not None:
+        return render(request, 'users/show_parking.html', {"img": ready_img_path, "logged_in":logged_in})
+    else:
+        return render(request, "users/index.html")
 
     return render(request, "users/index.html")
 

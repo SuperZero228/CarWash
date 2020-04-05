@@ -507,7 +507,9 @@ def process(original_img):
         cv.imshow("FINAL", for_pure_rects)
 
     # финальная версия картинки выводится на экран
-    cv.imshow("FINAL", for_pure_rects)
+    #cv.imshow("FINAL", for_pure_rects)
+    # финальная версия картинки сохраняется в папку, а потом выводится на HTML страницу
+    cv.imwrite(r"C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\FINAL.png", for_pure_rects)
 
 
     # после всех преобразований возвращает:
@@ -521,12 +523,3 @@ def process(original_img):
 
 # путь к фотографии, которую хотим обработать
 original_img = cv.imread(r'C:\CREESTL\Programming\PythonCoding\semestr_3\parking_lot_detection\parking_lots\empty.jpg')
-
-if __name__ == "__main__":
-    process(original_img)
-
-
-k = cv.waitKey(0)
-
-print("\nGOODBYE!")
-cv.destroyAllWindows()

@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+{% if logged_in == True %}
+        path to img {{ img }}
+        <img src="C:/CREESTL/Programming/PythonCoding/semestr_4/CarWash/media/FINAL.jpg">
+{% else %}
+    <h2>Вы не вошли в аккаунт! Содержиоме страницы недоступно</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a class="ml-2" href="/login">
+                <button class="btn btn-outline-info" type="submit">Войти</button>
+            </a>
+        </small>
+    </div>
+{% endif %}
+<br><br>
+</p>
+</body>
+</html>
+
