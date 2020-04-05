@@ -41,9 +41,11 @@ def register(request):
         email = request.POST.get('email') # эти поля взяты из forms.py
         print("\n\n\n email is " + email + '\n\n\n')
         password = request.POST.get('password1')
+        username = request.POST.get('username')
 
         # Создается пользователь и сохраняется в FireBase
         user = auth.create_user_with_email_and_password(email, password)
+        user["displayName"] = username
 
         # На почту отправляется письмо для подтверждения почты
         auth.send_email_verification(user["idToken"])
@@ -54,7 +56,11 @@ def register(request):
 
 # Домашняя страница
 def index(request):
-    return render(request, 'users/index.html')
+    if auth.current_user is not None:
+        logged_in = True
+    else:
+        logged_in = False
+    return render(request, 'users/index.html', {"logged_in": logged_in})
 
 # Станица входа
 def login(request):
@@ -68,14 +74,12 @@ def login(request):
         except Exception:
             raise Exception
 
-        #messages.info(request, f'Вы успешно вошли в аккаунт!')
-        video_url = find_video()
         if auth.current_user:
             logged_in = True
         else:
             logged_in = False
 
-        return display_video(request, logged_in, video_url)
+        return display_video(request)
 
 
         #return redirect("../video", {"logged_in": logged_in})
@@ -105,10 +109,15 @@ def find_video():
 
 
 # Функция рендерит страницу, на которой воспроизводится видео
-# Второй и третий аргумент None, потому что если пользователь не зареган и перейдет на вкладку /video
-# То у него должно отобразиться сообщение о том, что он не зареган
-# А вот если он зареган, то они в функции login становятся не None и дальше все работает норм
-def display_video(request, logged_in=None, video_url=None):
+
+def display_video(request):
+
+    video_url = find_video()  # находится путь к видео в папке /media/
+
+    if auth.current_user is not None:
+        logged_in = True
+    else:
+        logged_in = False
     return render(request, 'users/videos.html', {"logged_in": logged_in, "url":video_url})
 
 # Функция вызывается другой функцией и реализует функионал OpenCV

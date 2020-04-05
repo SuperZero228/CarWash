@@ -7,18 +7,33 @@
         <title>Home page</title>
     </head>
     <body>
-        <h1>Для того, чтобы смотреть видео, необходимо зарегистрироваться или войти</h1>
-        <a href="/register">
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Зарегистрироваться</button>
-            </div>
-        </a>
-        <br>
-        <a href="/login">
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Войти</button>
-            </div>
-        </a>
+        {% if not logged_in %}
+            <h1>Для того, чтобы смотреть видео, необходимо зарегистрироваться или войти</h1>
+            <a href="/register">
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Зарегистрироваться</button>
+                </div>
+            </a>
+            <br>
+            <a href="/login">
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Войти</button>
+                </div>
+            </a>
+        {% else %}
+            <h1>Вы ранее вошли в аккаунт. Что хотите сделать сейчас?</h1>
+            <a href="/video">
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Смотреть видео</button>
+                </div>
+            </a>
+            <br>
+            <a href="/logout">
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Выйти из аккаунта</button>
+                </div>
+            </a>
+        {% endif %}
 
     </body>
     </html>
