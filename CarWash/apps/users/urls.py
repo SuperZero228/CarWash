@@ -17,5 +17,4 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('test/', views.activate_opencv, name="test"),  # пробую тестить OpenCV
     path('video/', views.display_video, name="video"),  # на этой странице показывается видео, но только если пользователь вошел в аккаунт
-
 ]

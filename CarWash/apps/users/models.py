@@ -1,6 +1,8 @@
 from django.db import models
 
 
+# УСТАРЕВШИЕ МОДЕЛИ ДЛЯ SQLITE!
+
 # Модель пользователя
 class Single_User(models.Model):
     username = models.CharField("имя пользователя", max_length=50)

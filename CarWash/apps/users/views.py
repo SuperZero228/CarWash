@@ -39,7 +39,6 @@ auth = firebase.auth()
 def register(request):
     if request.method == 'POST': # Если был создан POST запрос на регистрацию, то форма создается со всеми данными запроса
         email = request.POST.get('email') # эти поля взяты из forms.py
-        print("\n\n\n email is " + email + '\n\n\n')
         password = request.POST.get('password1')
         username = request.POST.get('username')
 
