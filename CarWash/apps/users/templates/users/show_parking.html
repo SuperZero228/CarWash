@@ -1,13 +1,14 @@
+{% load static %}
+
 <html>
 <head>
 <meta charset="UTF-8">
 </head>
 <body>
 {% if logged_in == True %}
-        path to img {{ img }}
-        <img src="C:/CREESTL/Programming/PythonCoding/semestr_4/CarWash/media/FINAL.jpg">
+        <img src='{% static  "FINAL.jpg" %}' width="400" height="300">
 {% else %}
-    <h2>Вы не вошли в аккаунт! Содержиоме страницы недоступно</h2>
+    <h2>Вы не вошли в аккаунт! Содержимое страницы недоступно</h2>
     <div class="border-top pt-3">
         <small class="text-muted">
             <a class="ml-2" href="/login">

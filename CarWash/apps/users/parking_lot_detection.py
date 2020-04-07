@@ -428,6 +428,7 @@ def process(original_img):
 
     centroids = to_class_list(centroids) # делаем массив классов вместо просто массива
 
+
     # все центриды рисуются в виде синих кругов
     if show_steps:
         for c in centroids:
@@ -509,7 +510,7 @@ def process(original_img):
     # финальная версия картинки выводится на экран
     #cv.imshow("FINAL", for_pure_rects)
     # финальная версия картинки сохраняется в папку, а потом выводится на HTML страницу
-    cv.imwrite(r"C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\FINAL.png", for_pure_rects)
+    cv.imwrite(r"C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\FINAL.jpg", for_pure_rects)
 
 
     # после всех преобразований возвращает:
@@ -523,3 +524,6 @@ def process(original_img):
 
 # путь к фотографии, которую хотим обработать
 original_img = cv.imread(r'C:\CREESTL\Programming\PythonCoding\semestr_3\parking_lot_detection\parking_lots\empty.jpg')
+
+if __name__ == "__main__":
+    process(original_img)

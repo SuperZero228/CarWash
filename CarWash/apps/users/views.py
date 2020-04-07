@@ -132,19 +132,18 @@ def activate_opencv(request):
 
     # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
     # который потом будет загруже на HTML страницу
-    ready_img_path = "C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\FINAL.png"
+
+
+
+    # СЮДА ПОМЕСТИТЬ РАСПОЗАВАНИЕ НОМЕРОВ
+
+
 
     if auth.current_user is not None:
         logged_in = True
+        return render(request, 'users/show_parking.html', {"logged_in": logged_in})
     else:
         logged_in = False
-
-    if ready_img_path is not None:
-        return render(request, 'users/show_parking.html', {"img": ready_img_path, "logged_in":logged_in})
-    else:
         return render(request, "users/index.html")
 
     return render(request, "users/index.html")
-
-
-
