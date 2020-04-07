@@ -113,6 +113,7 @@ def find_video():
 def display_video(request):
 
     video_url = find_video()  # находится путь к видео в папке /media/
+    #video_url = "C:/Users/idrdi/OneDrive/Desktop/CarWash/media/1.mp4"
 
     if auth.current_user is not None:
         logged_in = True
