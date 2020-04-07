@@ -1,13 +1,16 @@
-
 <html>
 <head>
 <meta charset="UTF-8">
 
 </head>
 <body>
-<h3> Воспроизводится видео из файла {{ url }}</h3>
-<br><br>
 {% if logged_in == True %}
+    {% if url %}
+        <h3> Воспроизводится видео из файла {{ url }}</h3>
+    {% else %}
+        <h3>Видео не найдено!</h3>
+    {% endif %}
+<br>
     <video width="400" controls autoplay>
       <source src="{{ url }}" type="video/mp4">
       Your browser does not support HTML5 video.
@@ -17,6 +20,9 @@
         <small class="text-muted">
             <a class="ml-2" href="/logout">
                 <button class="btn btn-outline-info" type="submit">Выйти из аккаунта</button>
+            </a>
+            <a class="ml-2" href="/index">
+                <button class="btn btn-outline-info" type="submit">На домашнюю страницу</button>
             </a>
         </small>
     </div>
