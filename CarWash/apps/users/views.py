@@ -118,26 +118,39 @@ def display_video(request):
 # Функция активирует работу OpenCV
 # Также вызывает другие функции, связанные с OpenCV
 def activate_opencv(request):
-    # В консоль надо смотреть когда это запускаю! Он там ждет ответа y/n
+    # Сначала рендериться форма, где пользователь указывает, хочет ли он видеть этапы работы
+    if request.method == "GET":
+        return render(request, 'users/steps_form.html')
+    # У самой форму метод POST, так что после ее заполнения выполнится это условие
+    elif request.method == "POST":
+
+        choice = request.POST.get("select")
+        if choice == "yes":
+            show_steps = True # переключается в зависимости от выбора пользователя
+        elif choice == "no":
+            show_steps = False
+
+        # ДЕТЕКТ ПАРКОВОК
+        # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
+        # который потом будет загруже на HTML страницу
+        print("\n\nПроизводится распознавание парковочных зон.")
+        parking_img = cv2.imread(settings.MEDIA_ROOT + 'input/empty.jpg')
+
+        parking_lot_detection.process(parking_img, show_steps)
+
+        # ДЕТЕКТ НОМЕРОВ
+        # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
+        # который потом будет загруже на HTML страницу
+        print("\n\nПроизводится распознавание номеров автомобиля.")
+        plate_img = cv2.imread(settings.MEDIA_ROOT + "input/bmw.jpg")
+        license_plate_recognition_v2.process(plate_img, show_steps)
+
+        print("\n\nРабота завершена! Результаты можно видеть в папке media/output\n\n")
+
+        # перенаправление на страницу с результатами
+        return redirect('../results')
 
 
-    # ДЕТЕКТ ПАРКОВОК
-    # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
-    # который потом будет загруже на HTML страницу
-    print("\n\nПроизводится распознавание парковочных зон.")
-    parking_img = cv2.imread(settings.MEDIA_ROOT + 'input/empty.jpg')
-    parking_lot_detection.process(parking_img)
-
-    # ДЕТЕКТ НОМЕРОВ
-    # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
-    # который потом будет загруже на HTML страницу
-    print("\n\nПроизводится распознавание номеров автомобиля.")
-    plate_img = cv2.imread(settings.MEDIA_ROOT + "input/bmw.jpg")
-    license_plate_recognition_v2.process(plate_img)
-
-    print("\n\nРабота завершена! Результаты можно видеть в папке media/output\n\n")
-
-    return redirect('../results')
 
 
 # Функция показывает фотки, обработанные OpenCV

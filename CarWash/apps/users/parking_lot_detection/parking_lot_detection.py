@@ -292,12 +292,12 @@ def approx_to_x_and_y(approx):
 # главная функция программы, которая вызывает все, описанные выше
 # на вход подается кадр с камеры
 # на выходе получаем тот же кадр с размеченными на нем парковочными местами с номерами, расставленными на них
-def process(original_img):
+def process(original_img, show_steps):
 
     if original_img is None:
         print("Указан неверный путь к фото! Попробуйте снова.")
         exit()
-
+    '''
     # защита ввода
     go = False
     print("Вы хотели бы видеть все шаги работы?")
@@ -312,6 +312,7 @@ def process(original_img):
             go = True
         else:
             print("Некорректный ввод! Попробуйте снова.")
+    '''
 
     # размер кадра изменяется для удобства
     original_img = imutils.resize(original_img, width=800)

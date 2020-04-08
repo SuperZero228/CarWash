@@ -119,7 +119,8 @@ def format_text(text):
 Вход: путь к фото; индикатор того, надо ли показывать шаги работы
 Выход: текст, найденный на фото
 """
-def process(original_img):
+def process(original_img, show_steps):
+    '''
     # защита ввода
     go = False
     print("Вы хотели бы видеть все шаги работы?")
@@ -134,6 +135,7 @@ def process(original_img):
             go = True
         else:
             print("Некорректный ввод! Попробуйте снова.")
+    '''
 
     text, path_to_text = None, None  # инициализируем пустыми значениеми
 
