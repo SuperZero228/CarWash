@@ -6,7 +6,6 @@ import os, sys
 # BASE_DIR = base_dir is C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -128,5 +127,6 @@ LOGIN_REDIRECT_URL = '../../video/1' # сделано топорно
 
 # Здесь хранятся фотки
 # Указываем что все они в папке static в корне проекта
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/media/output/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'media/output')]
+
