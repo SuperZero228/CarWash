@@ -2,19 +2,11 @@ from django.contrib import messages
 from django.conf import settings
 from django.shortcuts import render, redirect
 import os
-<<<<<<< Updated upstream
 import pyrebase
 import cv2
-||||||| merged common ancestors
-import fnmatch
-=======
-import fnmatch
-import pyrebase
->>>>>>> Stashed changes
 
 # ОБЯЗАТЕЛЬНО СПЕРЕДИ ПИСАТЬ users !!!
 
-<<<<<<< Updated upstream
 from CarWash.apps.users.license_plate_detection import license_plate_recognition_v2
 from CarWash.apps.users.parking_lot_detection import parking_lot_detection
 
@@ -42,33 +34,9 @@ database = firebase.database()
 
 
 ######################################################################################
-||||||| merged common ancestors
-=======
-
-############################################
-# Конфиг для БД FireBase
-config = {
-    'apiKey': "AIzaSyBnsFHlZ9IP7kATKMILibYxT4y2_CRWUrM",
-    'authDomain': "carwash-838f3.firebaseapp.com",
-    'databaseURL': "https://carwash-838f3.firebaseio.com",
-    'projectId': "carwash-838f3",
-    'storageBucket': "carwash-838f3.appspot.com",
-    'messagingSenderId': "548753653087",
-    'appId': "1:548753653087:web:1dcba0736eff005002caea",
-    'measurementId': "G-7YLLEJ4SX7"
-  };
-
-firebase = pyrebase.initialize_app(config)
-
-auth = firebase.auth()
-
-#############################################
-
->>>>>>> Stashed changes
 # Это вьюшка для страницы регистрации.
 def register(request):
     if request.method == 'POST': # Если был создан POST запрос на регистрацию, то форма создается со всеми данными запроса
-<<<<<<< Updated upstream
         email = request.POST.get('email') # эти поля взяты из forms.py
         password = request.POST.get('password1')
         username = request.POST.get('username')
@@ -83,52 +51,6 @@ def register(request):
         return redirect('../login')
 
     return render(request, 'users/register.html')
-||||||| merged common ancestors
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            # СОХРАНЕНИЕ ПОЛЬЗОВАТЕЛЯ
-            form.save()
-
-            username = form.cleaned_data.get('username')
-            # Бывают такие flash-сообщения
-            # messages.debug
-            # messages.info
-            # messages.success
-            # messages.warning
-            # messages.error
-            messages.success(request, f'Аккаунт создан!')
-            return redirect('../login')
-        else:
-            print("Form is not valid!")
-    else:
-        form = UserRegisterForm() # Если нет, то создается просто пустая форма
-        print(1)
-    return render(request, 'users/register.html', {'form': form})
-=======
-
-        # Создается форма, которую пользователь заполняет, и затем из нее мы получаем данные
-        form = UserRegisterForm(request.POST)
-
-        # Это сохранение в FireBase (более поздняя фича)
-        email = request.POST.get('email')
-        password = request.POST.get('password1')  # эти поля берутся из forms.py fields
-
-
-        # Если все удачно, то перенаправляется на страницу входа
-        if form.is_valid():
-            # В FireBase создается пользователь
-            user = auth.create_user_with_email_and_password(email, password)
-            # Подтверждение почты
-            auth.send_email_verification(user["idToken"])
-            messages.success(request, f'Аккаунт создан!')
-            form =
-            return redirect('../login')
-    else:
-        form = UserRegisterForm() # Если нет, то создается просто пустая форма
-
-    # КОГДА ВЫЗЫВАЕТСЯ ФУНКЦИЯ register, то вот это выводится на ЭКРАН
-    return render(request, 'users/register.html', {'form': form})
->>>>>>> Stashed changes
 
 # Домашняя страница
 def index(request):
