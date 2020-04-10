@@ -1,21 +1,14 @@
 from django.contrib import messages
-from django.http import HttpResponse
 from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 import os
-import fnmatch
 import pyrebase
 import cv2
-import imutils
 
 # ОБЯЗАТЕЛЬНО СПЕРЕДИ ПИСАТЬ users !!!
-from users.models import Single_User
-from users.models import Video
-from users.forms import UserRegisterForm # кастомная форма регистрации
 
-from . import parking_lot_detection
-
-
+from CarWash.apps.users.license_plate_detection import license_plate_recognition_v2
+from CarWash.apps.users.parking_lot_detection import parking_lot_detection
 
 #######################################################################################
 # конфиг для FireBase
@@ -33,6 +26,12 @@ config = {
 firebase = pyrebase.initialize_app(config)
 
 auth = firebase.auth()
+
+database = firebase.database()
+
+
+
+
 
 ######################################################################################
 # Это вьюшка для страницы регистрации.
@@ -55,6 +54,7 @@ def register(request):
 
 # Домашняя страница
 def index(request):
+
     if auth.current_user is not None:
         logged_in = True
     else:
@@ -78,7 +78,8 @@ def login(request):
         else:
             logged_in = False
 
-        return display_video(request)
+        return render(request, 'users/index.html', {"logged_in":logged_in})
+        #return display_video(request)
 
 
         #return redirect("../video", {"logged_in": logged_in})
@@ -94,7 +95,7 @@ def logout(request):
 # Функция получает путь к файлу с видео
 def find_video():
     video_name = ""
-    for fname in os.listdir(settings.MEDIA_ROOT):
+    for fname in os.listdir(settings.MEDIA_ROOT + "input/"):
         if ".mp4" in fname:
             video_name = fname
             break
@@ -102,7 +103,8 @@ def find_video():
     video_name = "1.mp4" # надо сделать, чтобы искал любой видос !!! БАГ
     """
 
-    video_url = settings.MEDIA_ROOT + video_name
+    video_url = settings.MEDIA_ROOT + "input/" + video_name
+    print("VIDEO PATH ", video_url)
 
     return video_url
 
@@ -120,30 +122,50 @@ def display_video(request):
     return render(request, 'users/videos.html', {"logged_in": logged_in, "url":video_url})
 
 
-
-# Надо в конце рендерить страницу videos.html и в словаре передать туда результат работы opencv
-# а потом его надо будет через {{  }} вывести наверно
+# Функция активирует работу OpenCV
+# Также вызывает другие функции, связанные с OpenCV
 def activate_opencv(request):
-    # В консоль надо смотреть когда это запускаю! Он там ждет ответа y/n
-    img = cv2.imread(r'C:\CREESTL\Programming\PythonCoding\semestr_3\parking_lot_detection\parking_lots\empty.jpg')
-    # Фотка обрабатывается
-    parking_lot_detection.process(img)
+    # Сначала рендериться форма, где пользователь указывает, хочет ли он видеть этапы работы
+    if request.method == "GET":
+        return render(request, 'users/steps_form.html')
+    # У самой форму метод POST, так что после ее заполнения выполнится это условие
+    elif request.method == "POST":
+
+        choice = request.POST.get("select")
+        if choice == "yes":
+            show_steps = True # переключается в зависимости от выбора пользователя
+        elif choice == "no":
+            show_steps = False
+
+        # ДЕТЕКТ ПАРКОВОК
+        # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
+        # который потом будет загруже на HTML страницу
+        print("\n\nПроизводится распознавание парковочных зон.")
+        parking_img = cv2.imread(settings.MEDIA_ROOT + 'input/empty.jpg')
+
+        parking_lot_detection.process(parking_img, show_steps)
+
+        # ДЕТЕКТ НОМЕРОВ
+        # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
+        # который потом будет загруже на HTML страницу
+        print("\n\nПроизводится распознавание номеров автомобиля.")
+        plate_img = cv2.imread(settings.MEDIA_ROOT + "input/bmw.jpg")
+        text = license_plate_recognition_v2.process(plate_img, show_steps)
+
+        print("\n\nРабота завершена! Результаты можно видеть в папке media/output\n\n")
+
+        # перенаправление на страницу с результатами
+        return redirect('../results')
 
 
-    # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
-    # который потом будет загруже на HTML страницу
 
 
 
-    # СЮДА ПОМЕСТИТЬ РАСПОЗАВАНИЕ НОМЕРОВ
-
-
-
+# Функция показывает фотки, обработанные OpenCV
+def show_results(request):
     if auth.current_user is not None:
         logged_in = True
-        return render(request, 'users/show_parking.html', {"logged_in": logged_in})
     else:
         logged_in = False
-        return render(request, "users/index.html")
 
-    return render(request, "users/index.html")
+    return render(request, 'users/show_results.html', {"logged_in": logged_in})
