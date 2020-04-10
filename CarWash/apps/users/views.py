@@ -27,6 +27,12 @@ firebase = pyrebase.initialize_app(config)
 
 auth = firebase.auth()
 
+database = firebase.database()
+
+
+
+
+
 ######################################################################################
 # Это вьюшка для страницы регистрации.
 def register(request):
@@ -48,6 +54,7 @@ def register(request):
 
 # Домашняя страница
 def index(request):
+
     if auth.current_user is not None:
         logged_in = True
     else:
@@ -143,12 +150,13 @@ def activate_opencv(request):
         # который потом будет загруже на HTML страницу
         print("\n\nПроизводится распознавание номеров автомобиля.")
         plate_img = cv2.imread(settings.MEDIA_ROOT + "input/bmw.jpg")
-        license_plate_recognition_v2.process(plate_img, show_steps)
+        text = license_plate_recognition_v2.process(plate_img, show_steps)
 
         print("\n\nРабота завершена! Результаты можно видеть в папке media/output\n\n")
 
         # перенаправление на страницу с результатами
         return redirect('../results')
+
 
 
 
