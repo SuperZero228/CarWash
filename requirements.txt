@@ -1,0 +1,9 @@
+requests==2.11.1
+numpy==1.17.0
+opencv-python
+imutils
+django
+django-crispy-forms
+pyrebase
+sklearn
+pandas
