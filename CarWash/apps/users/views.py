@@ -25,11 +25,11 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 
-auth = firebase.auth()
+auth = firebase.auth() # регистраци и вход пользователей
 
-database = firebase.database()
+db = firebase.database() # текстовые данные
 
-
+storage = firebase.storage() # медиа-файлы
 
 
 
@@ -43,7 +43,7 @@ def register(request):
 
         # Создается пользователь и сохраняется в FireBase
         user = auth.create_user_with_email_and_password(email, password)
-        user["displayName"] = username
+        auth.current_user["username"] = username
 
         # На почту отправляется письмо для подтверждения почты
         auth.send_email_verification(user["idToken"])
@@ -121,6 +121,16 @@ def display_video(request):
         logged_in = False
     return render(request, 'users/videos.html', {"logged_in": logged_in, "url":video_url})
 
+# Функция сохраняет полученные в ходе работы данные в FireBase
+def save_to_db(processed_parking, text):
+    data = auth.get_account_info(auth.current_user["idToken"])
+    print("AAAAAA")
+    for el in data:
+        print(el)
+    # Помещаем обработанное фото парковки в БД (Storage/users/email/images/...)
+    #storage.child('/users/ ' + auth.current_user["idToken"] + "/images/processed_parking.jpg").put("C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\output\parking.jpg")
+    # Помещаем текст с номера в БД (Database/users/email/number_text...)
+    #db.child('/users').child(auth.current_user["idToken"]).set(text)
 
 # Функция активирует работу OpenCV
 # Также вызывает другие функции, связанные с OpenCV
@@ -143,16 +153,22 @@ def activate_opencv(request):
         print("\n\nПроизводится распознавание парковочных зон.")
         parking_img = cv2.imread(settings.MEDIA_ROOT + 'input/empty.jpg')
 
-        parking_lot_detection.process(parking_img, show_steps)
+        # Фотка обработанной парковки
+        processed_parking = parking_lot_detection.process(parking_img, show_steps)[0]
 
         # ДЕТЕКТ НОМЕРОВ
         # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
         # который потом будет загруже на HTML страницу
         print("\n\nПроизводится распознавание номеров автомобиля.")
         plate_img = cv2.imread(settings.MEDIA_ROOT + "input/bmw.jpg")
+
+        # Текст с распознанного номера
         text = license_plate_recognition_v2.process(plate_img, show_steps)
 
+        save_to_db(processed_parking, text)
+
         print("\n\nРабота завершена! Результаты можно видеть в папке media/output\n\n")
+        print("\nРезультаты также были сохранены в FireBase")
 
         # перенаправление на страницу с результатами
         return redirect('../results')
