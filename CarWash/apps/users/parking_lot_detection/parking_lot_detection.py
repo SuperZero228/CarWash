@@ -1,13 +1,12 @@
-
+from django.conf import settings
 import cv2 as cv
 import numpy as np
-import os
 import imutils
 from math import floor, tan, sqrt, atan2, pi
-import random
 from sklearn.cluster import KMeans
 from pandas import DataFrame
-from django.conf import settings
+import math
+import os
 
 # Путь к папке media
 MEDIA = "C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media"
@@ -16,10 +15,12 @@ MEDIA = "C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media"
 PATH_HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-"""
-Класс служит для обозначения факта, что точка уже соединена с какой-то другой или же свободна
-"""
+
 class Point():
+    """
+    Класс служит для обозначения факта, что точка уже соединена с какой-то другой или же свободна
+    """
+
     def __init__(self, x, y):
         self.x = int(x)
         self.y = int(y)
@@ -27,28 +28,115 @@ class Point():
         self.is_end = False  # точка - конец прямой\
         self.connected = []  # здесь будут хранится координаты центроидов, которые соединены с данным
 
-"""
-Класс парковочного места
-"""
+
 class Center():
+    """
+    Класс парковочного места
+    """
+
     # id - номер центра парковки, coords - координаты центра парковки
     def __init__(self, id, coords):
         self.id = id
         self.coords = coords
 
 
+def friendly_interface(img):
+    """
+    Пока что очень сырой интерфейс для работы с пользователем
+    Взпаимодействие с пользователем через консоль
+    """
+    if img is None:
+        print("You wrote a wrong path to the image! Try once again")
+        exit()
 
-"""
-Нужна дла корректной работы следующей функции
-"""
+    # пользователь выбирает, хочет ли он видеть все шаги обработки кадра
+    print("Do you want to see all the steps of processing?")
+    print("1) Yes\n2) No")
+    choice = int(input())
+    if choice == 1:
+        show_steps = True
+    else:
+        show_steps = False
+    return show_steps
+
+
+def show(img=0, name_window=0, show=False):
+    """
+    Просто показывает изображение если надо показывать или закрывает все окна если не надо
+    """
+    if show:
+        cv.imshow(name_window, img)
+        cv.waitKey()
+    else:
+        cv.destroyAllWindows()
+
+
+def search_degrees(all_points, min_d=0, max_d=0):
+    """
+    Нужна для поиска угла наклона парковки и линий котрые соответствуют этому углу
+    ВАЖНО данная функция может возвращять разное число переменных (работает в двух режимах)
+    1)если тебе нужно получить предпологаемый угол наклона от минимально возможного до максимально
+    возможного то помести в нее координаты точек
+    2)если нужно получить линии в этом диапазоне углов то помести в нее координаты точек и границы диапазона углов
+    """
+    if (min_d == 0) and (max_d == 0):
+        d = {a: 0 for a in range(72)}
+        print(d)
+    else:
+        line_list = []
+    for point in all_points:
+        print(all_points.index(point))
+        print(point)
+        print('___________________________')
+        i = all_points.index(point) + 1
+        while i < len(all_points):
+            print(all_points[i], "and", point)
+            # point and all_points
+            vector_ax = all_points[i][0] - point[0]
+            vector_ay = all_points[i][1] - point[1]
+            print(vector_ax, vector_ay)
+            degrees = math.degrees(math.acos((vector_ax) / (math.sqrt(vector_ax ** 2 + vector_ay ** 2))))
+            if (vector_ax == 0) and (vector_ay == 0):
+                i += 1
+                continue
+            if vector_ay < 0:
+                degrees = 180 - degrees
+            degrees_inv = degrees + 180
+            if (min_d == 0) and (max_d == 0):
+                key = math.trunc(degrees / 5)
+                key_inv = math.trunc(degrees_inv / 5)
+                if key_inv == 72:
+                    key_inv = 71
+                print(degrees, degrees_inv, key, key_inv, '\n')
+                d[key] += 1
+                d[key_inv] += 1
+            elif (min_d < degrees) and (degrees < max_d):
+                line = [int(all_points[i][0]), int(all_points[i][1]), int(point[0]), int(point[1])]
+                line_list.append(line)
+            i += 1
+        print('\n')
+    if (min_d == 0) and (max_d == 0):
+        print(d)
+        key_min = (max(d, key=d.get) * 5 - 20)
+        key_max = key_min + 40
+        print('key_min = ', key_min, 'key_max = ', key_max)
+        return key_min, key_max
+    else:
+        print(line_list)
+        return line_list
+
+
 def nothing(*arg):
+    """
+    Нужна дла корректной работы следующей функции
+    """
     pass
 
 
-"""
-Пользователь вручную настраивает цветовой фильтр дла распознавания белых линий парковки
-"""
 def manually_set_filter(img):
+    """
+    Пользователь вручную настраивает цветовой фильтр дла распознавания белых линий парковки
+    """
 
     cv.namedWindow("result")  # главное окно
     cv.namedWindow("settings")  # окно настроек
@@ -77,7 +165,6 @@ def manually_set_filter(img):
         h_min = np.array((h1, s1, v1), np.uint8)
         h_max = np.array((h2, s2, v2), np.uint8)
 
-
         # накладываем фильтр на кадр в модели HSV
         thresh = cv.inRange(hsv, h_min, h_max)
 
@@ -88,23 +175,24 @@ def manually_set_filter(img):
         if ch == ord("q"):
             cv.destroyAllWindows()
 
-            return h_min, h_max  #после того как пользователь нажимает на q то возвращаются границы
+            return h_min, h_max  # после того как пользователь нажимает на q то возвращаются границы
 
 
-"""
-Эта функция создает "маски" которые фильтруют все пиксели, оставляя только те, цвет которых
-указан
-"""
 def apply_filter(img, black_or_white, green):
+    """
+    Эта функция создает "маски" которые фильтруют все пиксели, оставляя только те, цвет которых
+    указан
+    """
     # кадр переводится в формат HSV
     image = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     if black_or_white == True:
         # маска для белого цвета в формате HLS
         lower, upper = manually_set_filter(img)
-        #ниже - универсальный фильтр для белого цвета
-        #lower = np.uint8([0, 0, 211])
-        #upper = np.uint8([255, 65, 255])
+        # ниже - универсальный фильтр для белого цвета
+        # lower = np.uint8([0, 0, 211])
+        # upper = np.uint8([255, 65, 255])
         white_mask = cv.inRange(image, lower, upper)
+        print("Applying white filter")
         mask = white_mask
         return mask
     if green == True:
@@ -113,22 +201,35 @@ def apply_filter(img, black_or_white, green):
         lower = np.uint8([0, 196, 197])
         upper = np.uint8([255, 255, 255])
         green_mask = cv.inRange(image, lower, upper)
+        print("Applying green filter")
         mask = green_mask
         return mask
 
-"""
-Функция переводит линии в формат массива
-"""
+
 def lines_to_array(lines):
+    """
+    Функция переводит линии в формат массива
+    """
     new = []
     for i, line in enumerate(lines):
         new.append(np.array(line[0]).tolist())
     return new
 
-"""
-Функция удаляет все слишком короткие линии
-"""
+
+def npoint2array(points):
+    """
+    Функция переводит точки из формата numpy в формат массива
+    """
+    output = []
+    for i, point in enumerate(points):
+        output.append(np.array(point[0]).tolist())
+    return output
+
+
 def delete_short_lines(lines):
+    """
+    Функция удаляет все слишком короткие линии
+    """
     max_length = 0
     new = []
     for line in lines:
@@ -141,7 +242,7 @@ def delete_short_lines(lines):
     for line in lines:
         x1, y1, x2, y2 = line[0], line[1], line[2], line[3]
         length = sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
-        if length > desired_length: # если длина линии больше требуемой (половины максимальной), то она возвращается
+        if length > desired_length:  # если длина линии больше требуемой (половины максимальной), то она возвращается
             new.append(line)
 
     lines = new
@@ -149,10 +250,10 @@ def delete_short_lines(lines):
     return lines
 
 
-"""
-Функция удаляет из массива контуров одинаковые контуры
-"""
 def only_different_cnts(contours):
+    """
+    Функция удаляет из массива контуров одинаковые контуры
+    """
     cnt_box = {}  # словарь (номер контура-бокс)
     for i, c in enumerate(contours):
         rect = cv.minAreaRect(c)  # это типа tuple
@@ -168,31 +269,34 @@ def only_different_cnts(contours):
         for j in range(i, len(cnt_box.keys()) - 1):  # от i и до конца массива ключей
             another_box = cnt_box[j]
             if box == another_box:
+                print("Found similar contours...Deleting them")
                 to_delete = contours[j]
-                contours.remove(to_delete)  # если нашли одинаковые контуры, то сразу из массива удаляем все, кроме первого
+                contours.remove(
+                    to_delete)  # если нашли одинаковые контуры, то сразу из массива удаляем все, кроме первого
 
     return contours  # возвращаем массив без повторений
 
-"""
-Функция находит расстояние между двумя точками(центроидами)
-"""
+
 def find_distance(p1, p2):
-    distance = sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
+    """
+    Функция находит расстояние между двумя точками(центроидами)
+    """
+    distance = sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2)
     return distance
 
 
-"""
-Функция находит расстояние между двумя точками, представленными через класс
-"""
 def find_distance_class(p1, p2):
+    """
+    Функция находит расстояние между двумя точками, представленными через класс
+    """
     distance = sqrt((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2)
     return distance
 
 
-"""
-Функция удаляет центроиды, находящиеся близко друг к другу
-"""
 def only_different_centroids(centroids):
+    """
+    Функция удаляет центроиды, находящиеся близко друг к другу
+    """
     new = []
     for c in centroids:
         new.append(np.array(c).tolist())
@@ -202,27 +306,26 @@ def only_different_centroids(centroids):
                 if find_distance(c, a) < 20:  # это расстяние можно варьировать
                     new.remove(a)
 
-
     return new
 
-"""
-Функция удаляет ложно обнаруженные центры парковок, находящиеся близко друг к другу
-"""
+
 def only_different_park_centers(centers):
+    """
+    Функция удаляет ложно обнаруженные центры парковок, находящиеся близко друг к другу
+    """
     for c in centers:
         for a in centers:
             if c != a:
                 if find_distance(c, a) < 20:  # это расстяние можно варьировать
                     centers.remove(a)
 
-
     return centers
 
 
-"""
-Преобразует массив центроидов в массив экземпляров классов
-"""
 def to_class_list(centroids):
+    """
+    Преобразует массив центроидов в массив экземпляров классов
+    """
     class_list = []
     for centroid in centroids:
         class_list.append(Point(centroid[0], centroid[
@@ -232,52 +335,10 @@ def to_class_list(centroids):
     return centroids
 
 
-"""
-Функция:
-1) Для каждого центроида находятся две ближайшие точки, одна дальше другой. 
-2) Проверятся, не был ли центроид соединен с каким-то из найденных
-2) Центроид соединяется с теми, с которыми еще не соединён
-"""
-def connect_two_closest(centroids, image, show_steps):
-    # находится первый ближайший центроид
-    for i, centroid in enumerate(centroids):
-        min_dist = 1000
-        for j, another in enumerate(centroids):
-            if i != j:
-                dist = find_distance_class(centroid, another)
-                if dist < min_dist:
-                    min_dist = dist # это минимальное расстояние
-                    min_index = j # это номер ближайшего центроида
-        # теперь находится центроид, который дальше только что найденного, но ближе всех остальных
-        # то есть второй по дальности
-        min_diff = 1000
-        for k, another in enumerate(centroids):
-            if (k != i) and (k != min_index):
-                dist = find_distance_class(centroid, another)
-                diff = dist - min_dist  # находится разность расстояний до ближайше точки и до данной
-                if diff < min_diff:  # если это расстояние меньше заданного, то ищем минимальное
-                    min_diff = diff
-                    second_min_index = k
-        if centroids[min_index] not in centroids[i].connected: # если точки еще не были соединены
-            cv.line(image, (int(centroid.x), int(centroid.y)),(int(centroids[min_index].x), int(centroids[min_index].y)), (0, 255, 0), 3)
-            # если рисовать центроиды, то будет наглядно видно как происодит соединение, но последующий код будет работать некорректно
-            #cv.circle(image, (centroids[min_index].x, centroids[min_index].y), 1, (0, 0, 255),5)  # самую близку точку рисуем зеленым
-            centroids[i].connected.append(centroids[min_index]) # фиксируется соединение двуз центроидов
-
-        if centroids[second_min_index] not in centroids[i].connected: # если точки еще не были соединены
-            cv.line(image, (int(centroid.x), int(centroid.y)), (int(centroids[second_min_index].x), int(centroids[second_min_index].y)),(0,255, 0), 3)
-            #cv.circle(image, (centroids[second_min_index].x, centroids[second_min_index].y), 1, (0, 0, 0),5)  # вторую по удаленности рисуем красны
-            centroids[i].connected.append(centroids[second_min_index])
-        #cv.circle(image, (centroids[i].x, centroids[i].y), 1, (255, 255, 255), 5)  # начальную точку рисуем белым
-        #if show_steps:
-            #cv.imshow("closest", image)
-            #cv.waitKey()
-
-
-"""
-Функция переводит approx в координаты x и y
-"""
 def approx_to_x_and_y(approx):
+    """
+    Функция переводит approx в координаты x и y
+    """
     x = []
     y = []
     for el in approx:
@@ -287,189 +348,14 @@ def approx_to_x_and_y(approx):
         y.append(el[1])
     return x, y
 
-#========================================================================================================================
 
-# главная функция программы, которая вызывает все, описанные выше
-# на вход подается кадр с камеры
-# на выходе получаем тот же кадр с размеченными на нем парковочными местами с номерами, расставленными на них
-def process(original_img, show_steps):
-
-    if original_img is None:
-        print("Указан неверный путь к фото! Попробуйте снова.")
-        exit()
-    '''
-    # защита ввода
-    go = False
-    print("Вы хотели бы видеть все шаги работы?")
-    while go != True:
-        print("1) Да\n2) Нет")
-        choice = input()
-        if choice == "1":
-            show_steps = True
-            go = True
-        elif choice == "2":
-            show_steps = False
-            go = True
-        else:
-            print("Некорректный ввод! Попробуйте снова.")
-    '''
-
-    # размер кадра изменяется для удобства
-    original_img = imutils.resize(original_img, width=800)
-    (H, W) = original_img.shape[:2]
-    if show_steps:
-        cv.imshow("original_img", original_img)
-        cv.waitKey()
-
-    #убираются шумы с фото
-    no_noize = cv.bilateralFilter(original_img, 11, 17, 17)
-
-    #накладывается белый фильтр, чтобы потом применить линии Хофа
-    white_img = apply_filter(no_noize, True, False)
-    for_lines = white_img
-    with_lines = original_img.copy()
-    if show_steps:
-        cv.imshow("white_filter", white_img)
-        cv.waitKey()
-
-    # минимальная длина линии и минимальный разрыва между линиями
-    min_length = W / 100
-    max_gap = W / 80
-
-
-    # находятся все линии на кадре
-    lines = cv.HoughLinesP(for_lines, rho=1, theta=np.pi/180, threshold=50, minLineLength=min_length, maxLineGap=max_gap)
-
-    # переводим линии в формат массива
-    lines = lines_to_array(lines)
-
-    # иногда, если находятся линии во весь экран, то слишком много подходящих из-за этого удаляется
-    lines = delete_short_lines(lines)
-
-    # все линии рисуются на кадре
-    for line in lines:
-        x1, y1, x2, y2 = line[0], line[1], line[2], line[3]
-        cv.line(with_lines, (x1, y1), (x2, y2), (0, 255, 0), 3)
-
-    # все линии рисуются
-    if show_steps:
-        cv.imshow("Hough lines", with_lines)
-        cv.waitKey()
-
-    # на кадр с нарисованными зелеными линиями применяется фильтр зеленого цвета
-    with_lines = apply_filter(with_lines, False, True)
-    if show_steps:
-        cv.imshow("green_filter", with_lines)
-        cv.waitKey()
-
-
-    # находятся все грани
-    edges = cv.Canny(with_lines, 100, 200)
-    if show_steps:
-        cv.imshow('edges', edges)
-        cv.waitKey()
-
-    # создаем копии для рисования на них
-    copy_1 = original_img.copy()
-    copy_2 = original_img.copy()
-    approx_img = original_img.copy()
-    for_centroids = original_img.copy()
-    for_centroids_2 = for_centroids.copy()
-    for_final_contours = original_img.copy()
-    for_pure_rects = original_img.copy()
-
-    # находятся все конутры
-    contours, _ = cv.findContours(edges, cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
-    # удаляются все одинаковые контуры, чтобы не рисовать их много раз
-    contours = only_different_cnts(contours)
-    # рисуются все полученные контуры
-    cv.drawContours(copy_2, contours, -1, (0, 255, 0), 2)
-    if show_steps:
-        cv.imshow("all_contours", copy_2)
-        cv.waitKey()
-
-    # словарь координат точек approx
-    data = {
-            "x":[],
-            "y":[]
-            }
-
-    approx_lenghts = []
-    for i,c in enumerate(contours):
-        perimeter = cv.arcLength(c, True)
-        # эпсилон - максимальное расстояние от настоящего угла на картинке и его "предсказания"
-        # True отвечает за замыкание первой и последней точек
-        epsilon = 0.02 * perimeter
-
-        # мест четное -> approx = мест * 5
-        # мест нечетное -> approx = мест * 4 + 1
-
-        approx = cv.approxPolyDP(c, epsilon, False) #находим незамкнутые контуры
-
-        # надо ограничить длину - не надо добавлять контуры из 200 точек
-        if len(approx) // 4 < 2 :
-            approx_lenghts.append(len(approx))
-
-        # находим все x и y координаты точек
-        x, y = approx_to_x_and_y(approx)
-        for each_x in x:
-            data["x"].append(each_x)
-        for each_y in y:
-            data["y"].append(each_y)
-
-        # рисуются точки
-        cv.drawContours(approx_img, approx, -1, (0, 255, 0), 3)
-        if show_steps:
-            cv.imshow("approx", approx_img)
-
-
-    dataframe = DataFrame(data, columns=["x", "y"])
-
-    # это - ожидаемое число кластеров центроидов
-    num_of_clusters = sum(approx_lenghts) // 2
-
-    # применятеся алгоритм kmeans чтобы распределить все центроиды на кластеры
-    kmeans = KMeans(n_clusters=num_of_clusters).fit(dataframe)
-    centroids = kmeans.cluster_centers_
-
-    centroids = only_different_centroids(centroids)
-
-    centroids = to_class_list(centroids) # делаем массив классов вместо просто массива
-
-
-    # все центриды рисуются в виде синих кругов
-    if show_steps:
-        for c in centroids:
-            cv.circle(for_centroids_2, (c.x, c.y), 5, (255,0,0), 3)
-    if show_steps:
-        cv.imshow("all_centroids", for_centroids_2)
-        cv.waitKey()
-
-
-    # каждый центроид соединятеся с двумя ближайшими
-    connect_two_closest(centroids, for_centroids, show_steps)
-
-    #на фотке с соединенными центроидами рисуем все линии
-    for line in lines:
-        x1, y1, x2, y2 = line[0], line[1], line[2], line[3]
-        cv.line(for_centroids, (x1, y1), (x2, y2), (0, 255, 0), 3)
-    if show_steps:
-        cv.imshow("everything", for_centroids)
-        cv.waitKey()
-
-    # теперь еще раз применятся фильтр зеленого цвета
-    green = apply_filter(for_centroids, False, True)
-    if show_steps:
-        cv.imshow("green_rects", green)
-        cv.waitKey()
-
-    # еще раз находятся все контуры
-    contours, _ = cv.findContours(green, cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
-    # все контуры рисуются
-    cv.drawContours(for_final_contours, contours, -1, (0, 255, 0), 3)
-    if show_steps:
-        cv.imshow("final_contours", for_final_contours)
-        cv.waitKey()
+def search_centers(contours, img, min_area, show_steps):
+    """
+    Эта функция ищет центры контуров и фильтрует все контуры от шума
+    """
+    ##################################################################################################################################
+    # Добавить проверку не входит ли центроида одного экземпляра класса парковочного места в контур другого добавить класс парковочное место
+    ##################################################################################################################################
 
     centers = []  # массив координтак центров парковок (не центроидов!)
     good_contours = []  # массив подходящих нам контуров
@@ -483,20 +369,182 @@ def process(original_img, show_steps):
         epsilon = 0.02 * perimeter
         approx = cv.approxPolyDP(c, epsilon, False)
 
-
-        min_area = (W * H) * 0.002  # это минимальная площадь контура, которая будте обрабатываться
-        # ограничение в 0.002 сильно влияет на корректность работы - его можно варьировать
         if area > min_area:
             # отсеиваются контуры, у которых слишком много изгибов
             if (len(approx)) in range(5, 7):
-                cv.drawContours(for_pure_rects, [c], -1, (0, 0, 255), 3) # рисуются контуры на чистом кадре
+                cv.drawContours(img, [c], -1, (0, 0, 255), 3)  # рисуются контуры на чистом кадре
                 good_contours.append(c)  # координаты контуры добавляются в массив, из которого потом будут извлечены
                 x1, y1 = box[0][0], box[0][1]
                 x2, y2 = box[2][0], box[2][1]
                 center = [(x1 + x2) / 2, (y1 + y2) / 2]
                 centers.append(center)  # добавляет координаты центра парковки в массив, чтобы потом их нарисовать
-                if show_steps:
-                    cv.imshow("rect", for_pure_rects)
+                show(img, "rect", show_steps)
+    return centers
+
+
+def lines_processing(for_lines, with_lines, show_steps, W):
+    """
+    Эта функция фильтрует а потом рисует линии хофа на предварительно обработанном изображении
+    """
+    # минимальная длина линии и минимальный разрыв между линиями
+    min_length = W / 100
+    max_gap = W / 80
+    # находятся все линии на кадре
+    lines = cv.HoughLinesP(for_lines, rho=1, theta=np.pi / 180, threshold=50, minLineLength=min_length,
+                           maxLineGap=max_gap)
+    # переводим линии в формат массива
+    lines = lines_to_array(lines)
+    # иногда, если находятся линии во весь экран, то слишком много подходящих из-за этого удаляется
+    lines = delete_short_lines(lines)
+    # все линии рисуются на кадре
+    for line in lines:
+        x1, y1, x2, y2 = line[0], line[1], line[2], line[3]
+        cv.line(with_lines, (x1, y1), (x2, y2), (0, 255, 0), 3)
+    show(with_lines, "Hough_lines", show_steps)
+    return with_lines
+
+
+def image_processing(img, show_steps):
+    """
+    Занимается предварительной обработкой изображения и узнает его форму
+    """
+    # размер кадра изменяется для удобства
+    original_img = imutils.resize(img, width=800)
+    (H, W) = original_img.shape[:2]
+    # ограничение в 0.002 сильно влияет на корректность работы - его можно варьировать
+    show(original_img, "original_img", show_steps)
+
+    # убираются шумы с фото
+    no_noize = cv.bilateralFilter(original_img, 11, 17, 17)
+
+    # накладывается белый фильтр, чтобы потом применить линии Хофа
+    white_img = apply_filter(no_noize, True, False)
+    show(white_img, "white_filter", show_steps)
+    return original_img, white_img, H, W
+
+
+def search_contours(edges, for_contours, show_steps):
+    """
+    Ищет контуры убирает контуры больше похожие на шум
+    """
+    contours, _ = cv.findContours(edges, cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
+    print("Found contours: ", len(contours))
+    # удаляются все одинаковые контуры, чтобы не рисовать их много раз
+    contours = only_different_cnts(contours)
+    print("Final number of contours: ", len(contours))
+    # рисуются все полученные контуры
+    cv.drawContours(for_contours, contours, -1, (0, 255, 0), 2)
+    show(for_contours, "all_contours", show_steps)
+    return contours
+
+
+def search_key_points(contours, for_approx, show_steps):
+    """
+    Ищет кластеры по большому количеству точек, центры этих кластеров (ключевые точки) и фильтрует к.т.
+    """
+    # Словарь координат точек approx
+    data = {
+        "x": [],
+        "y": []
+    }
+
+    approx_lenghts = []
+    for i, c in enumerate(contours):
+        perimeter = cv.arcLength(c, True)
+        # эпсилон - максимальное расстояние от настоящего угла на картинке и его "предсказания"
+        # True отвечает за замыкание первой и последней точек
+        epsilon = 0.02 * perimeter
+
+        # мест четное -> approx = мест * 5
+        # мест нечетное -> approx = мест * 4 + 1
+
+        approx = cv.approxPolyDP(c, epsilon, False)  # находим незамкнутые контуры
+
+        # надо ограничить длину - не надо добавлять контуры из 200 точек
+        if len(approx) // 4 < 2:
+            approx_lenghts.append(len(approx))
+
+        # находим все x и y координаты точек
+        x, y = approx_to_x_and_y(approx)
+        for each_x in x:
+            data["x"].append(each_x)
+        for each_y in y:
+            data["y"].append(each_y)
+
+        # рисуются точки
+        cv.drawContours(for_approx, approx, -1, (0, 255, 0), 3)
+
+    show(for_approx, "approx", show_steps)
+    data_frame = DataFrame(data, columns=["x", "y"])
+    # это - ожидаемое число кластеров центроидов
+    num_of_clusters = sum(approx_lenghts) // 2
+
+    # применятеся алгоритм kmeans чтобы распределить все центроиды на кластеры
+    key_means = KMeans(n_clusters=num_of_clusters).fit(data_frame)
+    centroids = key_means.cluster_centers_
+    centroids = only_different_centroids(centroids)
+
+    return centroids
+
+
+def process(original_img, show_steps):
+    """
+    главная функция программы, которая вызывает все, описанные выше
+    на вход подается кадр с камеры
+    на выходе получаем тот же кадр с размеченными на нем парковочными местами с номерами, расставленными на них
+    """
+
+
+    original_img, white_img, H, W = image_processing(original_img, show_steps)
+
+    min_area = (W * H) * 0.002  # это минимальная площадь контура, которая будет обрабатываться
+    with_lines = lines_processing(white_img, original_img.copy(), show_steps, W)
+
+    # на кадр с нарисованными зелеными линиями применяется фильтр зеленого цвета
+    with_lines = apply_filter(with_lines, False, True)
+    show(with_lines, "green_filter", show_steps)
+
+    # находятся все грани
+    edges = cv.Canny(with_lines, 100, 200)
+    show(edges, "edges", show_steps)
+
+    # создаем копии для рисования на них
+    for_centroids = original_img.copy()
+    for_centroids_2 = for_centroids.copy()
+    for_final_contours = original_img.copy()
+    for_pure_rects = original_img.copy()
+
+    # находятся все конутры
+    contours = search_contours(edges, original_img.copy(), show_steps)
+
+    # находятся центроиды по контурам
+    centroids = search_key_points(contours,  original_img.copy(), show_steps)
+
+    # _______________________________________________________________________________________________________________________
+    print(centroids)
+    min_d, max_d = search_degrees(centroids)
+    print(min_d, max_d)
+    line_list = search_degrees(centroids, min_d, max_d)
+    for line in line_list:
+        cv.line(with_lines, (line[0], line[1]), (line[2], line[3]), (255, 255, 255), 5)
+    show(with_lines, "preparatory_result", show_steps)
+
+    centroids = to_class_list(centroids)  # делаем массив классов вместо просто массива
+
+    # все центриды рисуются в виде синих кругов
+    if show_steps:
+        for c in centroids:
+            cv.circle(for_centroids_2, (int(c.x), int(c.y)), 5, (255, 0, 0), 3)
+    show(for_centroids_2, "all_centroids", show_steps)
+
+    # еще раз находятся все контуры
+    contours, _ = cv.findContours(with_lines, cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
+    # все контуры рисуются
+    cv.drawContours(for_final_contours, contours, -1, (0, 255, 0), 3)
+    show(for_final_contours, "final_contours", show_steps)
+
+    # ищем центры всех контуров и фильтруем их
+    centers = search_centers(contours, for_pure_rects, min_area, show_steps)
 
     # создаем массив классов центров парковок
     centers_classes = []
@@ -504,7 +552,7 @@ def process(original_img, show_steps):
     centers = only_different_park_centers(centers)
     # уже после того, как нарисовали прямоугольники - рисуем номера, чтобы они были поверх них
     id = 0
-    for i,center in enumerate(centers):
+    for i, center in enumerate(centers):
         # в массив добавляем новый центр
         centers_classes.append(Center(id, center))
         cv.circle(for_pure_rects, (int(center[0]), int(center[1])), 5, (255, 255, 0), 3)
@@ -512,27 +560,17 @@ def process(original_img, show_steps):
         cv.putText(for_pure_rects, str(id + 1), (int(center[0]) + 10, int(center[1]) - 10), cv.FONT_HERSHEY_SIMPLEX,
                    0.5, (255, 0, 0), 2)
         id += 1
-    #if show_steps:
-        #cv.imshow("FINAL", for_pure_rects)
+    show(for_pure_rects, "FINAL", show_steps)
 
-    # финальная версия картинки выводится на экран
-    #cv.imshow("FINAL", for_pure_rects)
+    # Удалаяет все фреймы
+    show(show=False)
+
     # финальная версия картинки сохраняется в папку, а потом выводится на HTML страницу
+    #cv.imwrite(settings.MEDIA_ROOT + "FINAL.png", for_pure_rects)
     cv.imwrite(MEDIA + '/output/parking.jpg', for_pure_rects)
-
-
 
     # после всех преобразований возвращает:
     # финальную картинку
     # массив классов центра парковок (id, координаты центра)
     # массив контуров, подходящих нам (парковок)
-    return for_pure_rects, centers_classes, good_contours
-
-
-##############################################################################################################################
-
-# путь к фотографии, которую хотим обработать
-original_img = cv.imread(MEDIA + '/input/empty.jpg')
-
-if __name__ == "__main__":
-    process(original_img)
+    return for_pure_rects, centers_classes
