@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+<<<<<<< Updated upstream
+    <list default="true" id="ff3932a4-b790-4809-aa8d-acdf2e06de83" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarWash/apps/users/license_plate_detection/license_plate_recognition_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/CarWash/apps/users/license_plate_detection/license_plate_recognition_v2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarWash/apps/users/parking_lot_detection/parking_lot_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/CarWash/apps/users/parking_lot_detection/parking_lot_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarWash/apps/users/templates/users/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/CarWash/apps/users/templates/users/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarWash/apps/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CarWash/apps/users/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarWash/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/CarWash/apps/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/output/parking.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/media/output/parking.jpg" afterDir="false" />
+    </list>
+=======
+    <list default="true" id="ff3932a4-b790-4809-aa8d-acdf2e06de83" name="Default Changelist" comment="" />
+>>>>>>> Stashed changes
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="616036799">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="11" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.26" value="1" />
+          <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.33" value="1" />
+          <entry key="project.open.time.34" value="1" />
+          <entry key="project.opened" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cfg" value="1" />
+          <entry key="html" value="60" />
+          <entry key="py" value="83" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="HTML" value="60" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="Python" value="83" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="4" />
+          <entry key="html" value="3115" />
+          <entry key="py" value="18595" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="3115" />
+          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="Python" value="18595" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+<<<<<<< Updated upstream
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarWash/apps/users/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1120">
+              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CarWash/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="125" column="54" selection-start-line="125" selection-start-column="54" selection-end-line="125" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/videos.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="23" column="44" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+>>>>>>> Stashed changes
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>videofile</find>
+      <find>redirect</find>
+      <find>the size</find>
+      <find>yolo</find>
+      <find>do you</find>
+      <find>cv.line</find>
+      <find>import</find>
+      <find>BASE</find>
+      <find>imread</find>
+      <find>do</find>
+      <find>imre</find>
+      <find>proc</find>
+      <find>imwri</find>
+      <find>te</find>
+      <find>imwrite</find>
+      <find>settings.</find>
+      <find>process</find>
+      <find>print</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/CarWash/apps/users/apps.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/admin.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/views_old.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/menu_page.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/logout.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/forms.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/register.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/login.html" />
+        <option value="$PROJECT_DIR$/CarWash/urls.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/DELETE.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/cgi.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/cgi.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/parking.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/models.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/base.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/videos.html" />
+        <option value="$PROJECT_DIR$/../../semestr_3/license_plate_detection/license_plate_recognition_v2.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/ZHOPA.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/parking_lot_detection.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/show_parking.html" />
+        <option value="$PROJECT_DIR$/CarWash/settings.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/show_results.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/parking_lot_detection/parking_lot_detection.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/license_plate_detection/license_plate_recognition_v2.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/views.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/index.html" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/urls.py" />
+        <option value="$PROJECT_DIR$/CarWash/apps/users/templates/users/steps_form.html" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
+    <option name="width" value="984" />
+    <option name="height" value="1044" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="CarWash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarWash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarWash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarWash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarWash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+              <item name="license_plate_detection" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarWash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarWash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="CarWash" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/CREESTL/Programming/PythonCoding/semestr_4/CarWash/CarWash/apps/users/templates/users/register.html" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../semestr_3/parking_lot_detection" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\CarWash\apps\users\license_plate_detection" />
+      <recent name="C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\CarWash\apps\users\parking_lot_detection" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.license_plate_recognition_v2 (1)">
+    <configuration name="license_plate_recognition_v2 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CarWash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CarWash/apps/users/license_plate_detection" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CarWash/apps/users/license_plate_detection/license_plate_recognition_v2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="license_plate_recognition_v2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CarWash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../semestr_3/license_plate_detection" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../semestr_3/license_plate_detection/license_plate_recognition_v2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="parking_lot_detection (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CarWash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CarWash/apps/users/parking_lot_detection" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CarWash/apps/users/parking_lot_detection/parking_lot_detection.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="parking_lot_detection" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CarWash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CarWash/apps/users" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\CarWash\apps\users\parking_lot_detection\parking_lot_detection.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="settings" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CarWash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CarWash" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CarWash/settings.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.settings" />
+      <item itemvalue="Python.license_plate_recognition_v2" />
+      <item itemvalue="Python.parking_lot_detection" />
+      <item itemvalue="Python.license_plate_recognition_v2 (1)" />
+      <item itemvalue="Python.parking_lot_detection (1)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.license_plate_recognition_v2 (1)" />
+        <item itemvalue="Python.parking_lot_detection (1)" />
+        <item itemvalue="Python.settings" />
+        <item itemvalue="Python.parking_lot_detection" />
+        <item itemvalue="Python.license_plate_recognition_v2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ff3932a4-b790-4809-aa8d-acdf2e06de83" name="Default Changelist" comment="" />
+      <created>1585509353592</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585509353592</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <layout>
+<<<<<<< Updated upstream
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20190778" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17567568" />
+>>>>>>> Stashed changes
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.4395018" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.044483986" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20906201" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.4395018" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2508897" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/views_old.py" />
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/menu_page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/DELETE.py" />
+    <entry file="file://$PROJECT_DIR$/../StudyingCGI/cgi-bin/main.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../StudyingCGI/cgi_serv.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/cgi.html" />
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/cgi.py" />
+    <entry file="file://$PROJECT_DIR$/CarWash/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/logout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="16" selection-start-line="5" selection-start-column="8" selection-end-line="12" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../semestr_3/parking_lot_detection/parking_lot_detection_v2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5529" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/parking.html" />
+    <entry file="file://$PROJECT_DIR$/CarWash/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="64" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="171">
+          <caret line="27" column="68" lean-forward="true" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="68" />
+=======
+        <state relative-caret-position="95">
+          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/yolo-obj_train.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="606" column="5" selection-start-line="606" selection-start-column="1" selection-end-line="606" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="95">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.2/system/python_stubs/-1941966759/cv2/cv2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="5078" column="4" selection-start-line="5078" selection-start-column="4" selection-end-line="5078" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/ZHOPA.html" />
+    <entry file="file://$PROJECT_DIR$/../../semestr_3/license_plate_detection/license_plate_recognition_v2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+=======
+        <state relative-caret-position="190">
+          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/license_plate_detection/rotate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/videos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="29" column="44" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/show_results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/parking_lot_detection/parking_lot_detection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="315" column="4" selection-start-line="315" selection-start-column="4" selection-end-line="315" selection-end-column="4" />
+          <folding>
+            <element signature="e#1#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/license_plate_detection/license_plate_recognition_v2.py">
+=======
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/urls.py">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="138" column="4" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="470">
+          <caret line="145" column="66" selection-start-line="145" selection-start-column="66" selection-end-line="145" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <marker date="1586366629356" expanded="true" signature="5573:5654" ph="..." />
+=======
+        <state relative-caret-position="1120">
+          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+>>>>>>> Stashed changes
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/steps_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="74" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="120" column="46" lean-forward="true" selection-start-line="120" selection-start-column="46" selection-end-line="120" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+        <state relative-caret-position="342">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/apps/users/templates/users/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+=======
+        <state relative-caret-position="437">
+          <caret line="23" column="44" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CarWash/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="125" column="54" selection-start-line="125" selection-start-column="54" selection-end-line="125" selection-end-column="54" />
+>>>>>>> Stashed changes
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
