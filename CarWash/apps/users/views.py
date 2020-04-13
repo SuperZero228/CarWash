@@ -43,7 +43,6 @@ def register(request):
 
         # Создается пользователь и сохраняется в FireBase
         user = auth.create_user_with_email_and_password(email, password)
-        auth.current_user["username"] = username
 
         # На почту отправляется письмо для подтверждения почты
         auth.send_email_verification(user["idToken"])
@@ -79,12 +78,6 @@ def login(request):
             logged_in = False
 
         return render(request, 'users/index.html', {"logged_in":logged_in})
-        #return display_video(request)
-
-
-        #return redirect("../video", {"logged_in": logged_in})
-        # Это убираю, потому что теперь более сложная схема - с редиректом
-        #return render(request, 'users/videos.html', {"logged_in": True, "url":video_url})
     else:
         return render(request, 'users/login.html')
 
@@ -124,14 +117,10 @@ def display_video(request):
 
 # Функция сохраняет полученные в ходе работы данные в FireBase
 def save_to_db(processed_parking, text):
-    data = auth.get_account_info(auth.current_user["idToken"])
-    print("AAAAAA")
-    for el in data:
-        print(el)
     # Помещаем обработанное фото парковки в БД (Storage/users/email/images/...)
-    #storage.child('/users/ ' + auth.current_user["idToken"] + "/images/processed_parking.jpg").put("C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\output\parking.jpg")
+    storage.child('/users/ ' + auth.current_user["localId"] + "/images/processed_parking.jpg").put("C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\output\parking.jpg")
     # Помещаем текст с номера в БД (Database/users/email/number_text...)
-    #db.child('/users').child(auth.current_user["idToken"]).set(text)
+    db.child('/users').child(auth.current_user["localId"]).set(text)
 
 # Функция активирует работу OpenCV
 # Также вызывает другие функции, связанные с OpenCV
