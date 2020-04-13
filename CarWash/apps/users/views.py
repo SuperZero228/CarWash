@@ -10,6 +10,8 @@ import cv2
 from CarWash.apps.users.license_plate_detection import license_plate_recognition_v2
 from CarWash.apps.users.parking_lot_detection import parking_lot_detection
 
+parking_downloadToken = None # Эта переменная нужна именно глобально для получения URL обработанного фото - без нее БАГ
+license_downloadToken = None
 #######################################################################################
 # конфиг для FireBase
 config = {
@@ -116,9 +118,31 @@ def display_video(request):
     return render(request, 'users/videos.html', {"logged_in": logged_in, "url":video_url})
 
 # Функция сохраняет полученные в ходе работы данные в FireBase
-def save_to_db(processed_parking, text):
+def save_to_db(processed_parking, processed_license, text):
+
+    # Если в put прописать напрямую processed_parking и processed_license, то он выдаст ошибку
+    # Так что надо сначала эти фотки сохранить в папке а потом поместить их в FireBase и удалить из папки
+    cv2.imwrite(settings.MEDIA_ROOT + r"\output\processed_parking.jpg", processed_parking)
+    cv2.imwrite(settings.MEDIA_ROOT + r"\output\processed_license.jpg", processed_license)
+
     # Помещаем обработанное фото парковки в БД (Storage/users/email/images/...)
-    storage.child('/users/ ' + auth.current_user["localId"] + "/images/processed_parking.jpg").put("C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media\output\parking.jpg")
+    parking_put_response = storage.child('/users').child(auth.current_user["localId"]).child("images/processed_parking.jpg").put(settings.MEDIA_ROOT + "output\processed_parking.jpg")
+    license_put_response = storage.child('/users').child(auth.current_user["localId"]).child("images/processed_license.jpg").put(settings.MEDIA_ROOT + "output\processed_license.jpg")
+
+    os.remove(settings.MEDIA_ROOT + r"\output\processed_parking.jpg")
+    os.remove(settings.MEDIA_ROOT + r"\output\processed_license.jpg")
+
+    print("PARKING_PUT_RESPONSE")
+    for key, value in parking_put_response.items():
+        print(key + " : " + value)
+
+    # Глоабальная переменная для скачивание фото с парковкой
+    global parking_downloadToken
+    parking_downloadToken = parking_put_response['downloadTokens']
+    # Глобальная переменная для скачивания фото с номерами
+    global license_downloadToken
+    license_downloadToken = license_put_response['downloadTokens']
+
     # Помещаем текст с номера в БД (Database/users/email/number_text...)
     db.child('/users').child(auth.current_user["localId"]).set(text)
 
@@ -144,7 +168,7 @@ def activate_opencv(request):
         parking_img = cv2.imread(settings.MEDIA_ROOT + 'input/empty.jpg')
 
         # Фотка обработанной парковки
-        processed_parking = parking_lot_detection.process(parking_img, show_steps)[0]
+        processed_parking = parking_lot_detection.process(parking_img, show_steps)
 
         # ДЕТЕКТ НОМЕРОВ
         # Вместо того, чтобы показываться во вспылвающем окне, обработанная фотография записывается в файл,
@@ -153,9 +177,9 @@ def activate_opencv(request):
         plate_img = cv2.imread(settings.MEDIA_ROOT + "input/bmw.jpg")
 
         # Текст с распознанного номера
-        text = license_plate_recognition_v2.process(plate_img, show_steps)
+        text, processed_license = license_plate_recognition_v2.process(plate_img, show_steps)
 
-        save_to_db(processed_parking, text)
+        save_to_db(processed_parking, processed_license, text)
 
         print("\n\nРабота завершена! Результаты можно видеть в папке media/output\n\n")
         print("\nРезультаты также были сохранены в FireBase")
@@ -174,4 +198,21 @@ def show_results(request):
     else:
         logged_in = False
 
-    return render(request, 'users/show_results.html', {"logged_in": logged_in})
+    text_response = db.child('/users').child(auth.current_user['localId']).get()
+    # Это текст с номера
+    text = str(text_response.val())
+
+
+    # Это ссылка на фотографию с распознанной парковкой
+    # В аргументах get_url ОБЯЗАТЕЛЬНО надо указывать downloadToken - это фиксит баг разработчика PyreBase
+    parking_image_url = storage.child('/users ').child(auth.current_user["localId"]).child("images/processed_parking.jpg").get_url(parking_downloadToken)
+    license_image_url = storage.child('/users ').child(auth.current_user["localId"]).child("images/processed_license.jpg").get_url(license_downloadToken)
+
+    # Необходимо удалить две цифры из URL фотографии, чтобы она кооректно отображалась
+    if "/o/users%20" in parking_image_url:
+        parking_image_url = parking_image_url.replace("/o/users%20", "/o/users")
+    if "/o/users%20" in license_image_url:
+        license_image_url = license_image_url.replace("/o/users%20", "/o/users")
+
+
+    return render(request, 'users/show_results.html', {"logged_in": logged_in, "text": text, "parking_image_url": parking_image_url, "license_image_url":license_image_url})

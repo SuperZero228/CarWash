@@ -573,4 +573,4 @@ def process(original_img, show_steps):
     # финальную картинку
     # массив классов центра парковок (id, координаты центра)
     # массив контуров, подходящих нам (парковок)
-    return for_pure_rects, centers_classes
+    return for_pure_rects

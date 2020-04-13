@@ -7,11 +7,15 @@
 <body>
 {% if logged_in == True %}
         <div>
-            <img src='{% static  "parking.jpg" %}' width="400" height="300">
+            <img src='{{ license_image_url }}' width="800" height="300">
         </div>
+        <h2>{{ text }}</h2>
+        <br>
+        <hr>
         <div>
-            <img src='{% static  "number_rect.jpg" %}' width="400" height="300">
+            <img src='{{ parking_image_url }}' width="400" height="300">
         </div>
+
 
 {% else %}
     <h2>Вы не вошли в аккаунт! Содержимое страницы недоступно</h2>

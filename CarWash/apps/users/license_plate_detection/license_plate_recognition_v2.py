@@ -298,7 +298,7 @@ def process(original_img, show_steps):
 
                 #если хотя бы 3 буквы нашли - хватит
                 if len(text) > 1:
-                    return text
+                    return text, rotated
                 else:
                     if len(plaques) > 1: #если плашка всего одна, то мы НЕ можем перейти к следующей
                         print("On this plaque text hasn`t been detected, moving to the next one!")
@@ -310,7 +310,7 @@ def process(original_img, show_steps):
     else:
         print("License plate hasn`t been detected!")
 
-    return text
+    return text, rotated
 
 #############################################################################################################
 if __name__ == "__main__":
