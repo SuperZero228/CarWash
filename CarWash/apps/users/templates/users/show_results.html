@@ -1,0 +1,34 @@
+{% load static %}
+
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+{% if logged_in == True %}
+        <div>
+            <img src='{{ license_image_url }}' width="800" height="300">
+        </div>
+        <h2>{{ text }}</h2>
+        <br>
+        <hr>
+        <div>
+            <img src='{{ parking_image_url }}' width="400" height="300">
+        </div>
+
+
+{% else %}
+    <h2>Вы не вошли в аккаунт! Содержимое страницы недоступно</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a class="ml-2" href="/login">
+                <button class="btn btn-outline-info" type="submit">Войти</button>
+            </a>
+        </small>
+    </div>
+{% endif %}
+<br><br>
+</p>
+</body>
+</html>
+

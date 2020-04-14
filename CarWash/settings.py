@@ -6,7 +6,6 @@ import os, sys
 # BASE_DIR = base_dir is C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -43,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'CarWash.urls'
@@ -114,7 +114,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 # папка, из которой будет загружаться медиа
 # MEADIA_ROOT = C:\CREESTL\Programming\PythonCoding\semestr_4\CarWash\media
@@ -124,3 +124,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4' # делаем стильна bootstrap4
 
 # После входа пользователей перенаправляет на страницу с видео
 LOGIN_REDIRECT_URL = '../../video/1' # сделано топорно
+
+# Здесь хранятся фотки
+# Указываем что все они в папке static в корне проекта
+STATIC_URL = '/media/output/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'media/output')]
+
